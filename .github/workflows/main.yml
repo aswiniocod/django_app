@@ -1,0 +1,57 @@
+name: Deploy Django App to AWS
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment when changes are pushed to the `main` branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    environment: production
+
+    steps:
+      # Step 1: Checkout code from GitHub
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Python environment
+      - name: Set up Python 3.x
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # Step 4: Create deployment package (zip)
+      - name: Create deployment package
+        run: |
+          zip -r deployment-package.zip .  # This will zip everything in the repository
+
+      # Step 5: Set up AWS credentials
+      - name: Set up AWS CLI
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}  # Ensure you set AWS_REGION in GitHub secrets
+
+      # Step 6: Upload deployment package to S3
+      - name: Upload deployment package to S3
+        run: |
+          aws s3 cp deployment-package.zip s3://${{ secrets.S3_BUCKET_NAME }}/deployment-package.zip
+
+      # Step 7: Trigger CodeDeploy deployment
+      - name: Trigger CodeDeploy Deployment
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ secrets.APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.DEPLOYMENT_GROUP_NAME }} \
+            --s3-location bucket=${{ secrets.S3_BUCKET_NAME }},key=deployment-package.zip,bundleType=zip \
+            --region ${{ secrets.AWS_REGION }}
