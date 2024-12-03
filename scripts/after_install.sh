@@ -3,6 +3,8 @@
 echo "Starting after_install script..."
 
 # Step 1: Activate the virtual environment (if you have one)
+cd /home/ubuntu/django_app
+
 echo "Activating virtual environment..."
 source /home/ubuntu/venv/bin/activate
 
@@ -12,12 +14,10 @@ pip install -r /home/ubuntu/django_app/requirements.txt
 
 # Step 3: Run database migrations
 echo "Running Django database migrations..."
-cd /home/ubuntu/django_app
-python manage.py makemigrations
 python manage.py migrate
 
 # Create the superuser using python manage.py shell
-sudo echo "from django.contrib.auth.models import User; User.objects.create_superuser('aswin', 'aswin@iocod.com', 'admin@123')" | python3 manage.py shell
+#sudo echo "from django.contrib.auth.models import User; User.objects.create_superuser('aswin', 'aswin@iocod.com', 'admin@123')" | python3 manage.py shell
 
 # Step 1: Restart the application service
 echo "Restarting app service..." >> /tmp/deployment.log
