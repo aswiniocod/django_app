@@ -20,7 +20,7 @@ def hello(request):
     </style>
 </head>
 <body>
-     <p>Hi Welcome To DevOps Engineer &#128512; !</p>
+     <p>Hi Welcome To AWS #87CEEB; !</p>
 </body>
 </html>
 """
