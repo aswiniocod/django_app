@@ -5,6 +5,9 @@ files:
   - source: /
     destination: /home/ubuntu/django_app
     file_exists_behavior: OVERWRITE
+  - source: /venv/*
+    destination: /home/ubuntu/django_app/venv
+    file_exists_behavior: DISALLOW
 
 hooks:
   BeforeInstall:
