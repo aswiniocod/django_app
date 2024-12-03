@@ -7,7 +7,7 @@ def hello(request):
     <title>Centered Content</title>
     <style>
         body {
-            background-color: #A3EBB1;
+            background-color: #FFA500;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -20,7 +20,7 @@ def hello(request):
     </style>
 </head>
 <body>
-     <p>Hi Welcome To Django &#128512; !</p>
+     <p>Hi Welcome To DevOps &#128512; !</p>
 </body>
 </html>
 """
