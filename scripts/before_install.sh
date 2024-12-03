@@ -16,16 +16,16 @@ echo "Installing system dependencies..." >> /tmp/deployment.log
 sudo apt-get install -y python3-pip python3-dev python3-venv >> /tmp/deployment.log 2>&1
 
 # Step 4: Create the virtual environment (if not already created)
-if [ ! -d "/home/ubuntu/django_app/venv" ]; then
+if [ ! -d "/home/ubuntu/venv" ]; then
     echo "Creating virtual environment..." >> /tmp/deployment.log
-    python3 -m venv /home/ubuntu/django_app/venv >> /tmp/deployment.log 2>&1
+    python3 -m venv /home/ubuntu/venv >> /tmp/deployment.log 2>&1
 else
     echo "Virtual environment already exists. Skipping creation." >> /tmp/deployment.log
 fi
 
 # Step 5: Activate the virtual environment
 echo "Activating virtual environment..." >> /tmp/deployment.log
-source /home/ubuntu/django_app/venv/bin/activate
+source /home/ubuntu/venv/bin/activate
 
 # Step 6: Upgrade pip to the latest version
 echo "Upgrading pip..." >> /tmp/deployment.log
