@@ -7,8 +7,8 @@ echo "Stopping app service..." >> /tmp/deployment.log
 sudo systemctl stop app.service >> /tmp/deployment.log 2>&1
 
 # Remove the entire .git directory to avoid conflicts during deployment
-rm -rf /home/ubuntu/django_app/.git
-rm -rf /home/ubuntu/django_app/.github
+sudo rm -rf /home/ubuntu/django_app/.git
+sudo rm -rf /home/ubuntu/django_app/.github
 
 # Ensure the destination directory is clean
-rm -rf /home/ubuntu/django_app/*
+sudo rm -rf /home/ubuntu/django_app/*
