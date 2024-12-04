@@ -11,12 +11,30 @@ source /home/ubuntu/venv/bin/activate
 # Step 2: Install dependencies (if requirements.txt has changed or if you're setting it up for the first time)
 echo "Installing Python dependencies..."
 #pip install -r /home/ubuntu/django_app/requirements.txt
-pip install -r requirements.txt
+pip install -r /home/ubuntu/django_app/requirements.txt
 
-# Step 3: Run database migrations
-echo "Running Django database migrations..."
-python manage.py makemigrations
-python manage.py migrate
+# Step 2: Run makemigrations
+echo "Running makemigrations..." >> /tmp/deployment.log
+/home/ubuntu/venv/bin/python /home/ubuntu/django_app/manage.py makemigrations >> /tmp/deployment.log 2>&1
+
+if [ $? -ne 0 ]; then
+    echo "makemigrations failed." >> /tmp/deployment.log
+    deactivate
+    exit 1
+fi
+
+# Step 3: Run migrate
+echo "Running migrate..." >> /tmp/deployment.log
+/home/ubuntu/venv/bin/python /home/ubuntu/django_app/manage.py migrate >> /tmp/deployment.log 2>&1
+
+if [ $? -ne 0 ]; then
+    echo "migrate failed." >> /tmp/deployment.log
+    deactivate
+    exit 1
+fi
+
+# Step 4: Deactivate the virtual environment
+deactivate
 
 # Create the superuser using python manage.py shell
 sudo echo "from django.contrib.auth.models import User; User.objects.create_superuser('aswin', 'aswin@iocod.com', 'admin@123')" | python3 manage.py shell
