@@ -7,6 +7,10 @@ echo "Starting after_install script..." >> /tmp/deployment.log
 echo "Activating virtual environment..." >> /tmp/deployment.log
 source /home/ubuntu/venv/bin/activate
 
+# Step 3: Change ownership of the migration files to 'ubuntu'
+echo "Changing ownership of migration files to 'ubuntu'..." >> /tmp/deployment.log
+sudo chown -R ubuntu:ubuntu /home/ubuntu >> /tmp/deployment.log 2>&1
+
 # Step 2: Install dependencies (if requirements.txt has changed or if you're setting it up for the first time)
 echo "Installing Python dependencies..." >> /tmp/deployment.log
 pip install -r /home/ubuntu/django_app/requirements.txt >> /tmp/deployment.log 2>&1
