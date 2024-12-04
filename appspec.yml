@@ -5,9 +5,11 @@ files:
   - source: /
     destination: /home/ubuntu/django_app
     file_exists_behavior: OVERWRITE
-  # - source: /
+
+  # If you need to deploy the virtual environment, uncomment and modify the following lines:
+  # - source: /venv
   #   destination: /home/ubuntu/django_app/venv
-  #   file_exists_behavior: DISALLOW
+  #   file_exists_behavior: DISALLOW  # Ensure that the virtual environment isn't overwritten
 
 hooks:
   BeforeInstall:
