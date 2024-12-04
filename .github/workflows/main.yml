@@ -23,20 +23,20 @@ jobs:
           python-version: '3.x'
 
       # Step 3: Install dependencies
-      - name: Install dependencies
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
+      # - name: Install dependencies
+      #   run: |
+      #     python -m venv venv
+      #     source venv/bin/activate
+      #     pip install -r requirements.txt
 
       # Step 4: Create deployment package (zip)
       - name: Create deployment package
         run: |
           zip -r deployment-package.zip .  # This will zip everything in the repository
 
-      - name: Delete venv
-        run: |
-          rm -rf venv
+      # - name: Delete venv
+      #   run: |
+      #     rm -rf venv
 
       # Step 5: Set up AWS credentials
       - name: Set up AWS CLI
