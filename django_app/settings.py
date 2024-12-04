@@ -82,15 +82,26 @@ WSGI_APPLICATION = 'django_app.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#    'default': {
+#       'ENGINE': 'django.db.backends.sqlite3',
+#       'NAME': 'database.sql',
+#       'USER': '',
+#       'PASSWORD': '',
+#       'HOST': '',
+#       'PORT': '',
+#    }
+# }
+
 DATABASES = {
-   'default': {
-      'ENGINE': 'django.db.backends.sqlite3',
-      'NAME': 'database.sql',
-      'USER': '',
-      'PASSWORD': '',
-      'HOST': '',
-      'PORT': '',
-   }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'mydb',  # Replace with your database name
+        'USER': 'testuser',  # Replace with your database user
+        'PASSWORD': 'testpass',  # Replace with your database password
+        'HOST': 'localhost',  # Database instance IP
+        'PORT': '5432',
+    }
 }
 
 
